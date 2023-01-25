@@ -9,6 +9,15 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: lappis
     volumes:
       - mongo-data:/data/db
+      - ./data:/tmp/data:ro
+      - ./db:/docker-entrypoint-initdb.d
+
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
 
 volumes:
   mongo-data:
