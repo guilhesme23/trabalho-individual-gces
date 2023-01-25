@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: lappis
+      MONGO_INITDB_ROOT_PASSWORD: lappis
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
