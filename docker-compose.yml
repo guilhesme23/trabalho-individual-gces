@@ -19,5 +19,8 @@ services:
     depends_on:
       - mongo
 
+  app:
+    build: .
+
 volumes:
   mongo-data:
