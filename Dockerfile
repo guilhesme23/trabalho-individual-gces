@@ -2,11 +2,15 @@ FROM python:3.8
 
 WORKDIR app
 
-ADD requirements.txt .
+RUN pip install poetry
+
+COPY README.md .
+
+ADD pyproject.toml .
 
 ADD src/ ./src/
 
-RUN pip install -r requirements.txt
+RUN poetry install
 
-CMD ["python", "src/main.py"]
+CMD ["poetry", "run", "python", "src/main.py"]
 
