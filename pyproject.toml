@@ -10,7 +10,7 @@ packages = [
 repository = "https://github.com/guilhesme23/trabalho-individual-gces"
 
 [tool.poetry.scripts]
-main = "src.main:__main__"
+main = "src.main:get_config"
 
 [tool.poetry.dependencies]
 python = "^3.8"
