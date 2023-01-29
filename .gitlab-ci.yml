@@ -1,0 +1,46 @@
+stages:
+  - linter
+  - test
+  - build
+  - deploy
+
+linter:
+  image: python:3.8
+  before_script:
+    - pip install flake8
+  script:
+    - flake8 ./src
+  only:
+    - master
+    - tags
+  allow_failure: true
+
+test:
+  image: python:3.8
+  before_script:
+    - pip install poetry
+  script:
+    - poetry run pytest
+  only:
+    - master
+    - tags
+
+build:
+  services:
+    - docker:dind
+  script:
+    - docker compose build 
+  only:
+    - master
+    - tags
+
+deploy:
+  image: python:3.8
+  before_script:
+    - pip install poetry
+  script:
+    - poetry version $CI_COMMIT_REF_NAME
+    - poetry build
+    - poetry publish -u $PIP_USERNAME -p $PIP_PASS
+  only:
+    - tags
